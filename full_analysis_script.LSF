@@ -1,0 +1,202 @@
+##NECESSARY JOB SPECIFICATIONS
+#BSUB -J TvRNASeqAnalysis         #Set the job name
+#BSUB -L /bin/bash           #Uses the bash login shell to initialize the job's execution environment.
+#BSUB -W 24:00                #Set the wall clock limit to 24 hours
+#BSUB -n 20                   #Request 10 tasks
+#BSUB -R "span[ptile=20]"     #Request 3000 task/core per node
+#BSUB -R "rusage[mem=2506]"  #Request 2506MB (2.5GB) per node
+#BSUB -M 2506                #Set the per process enforceable memory limit to 2506MB
+#BSUB -o TvAnalysisOut.%J      #Send stdout/err to "TvAnalysisOut.[jobID]"
+
+
+##LOAD HISAT2 MODULE
+
+module load HISAT2/2.0.5-intel-2015B-Python-2.7.10
+
+##ALIGN READS TO GENOME INDEXES
+
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/9_S9_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/9_S9_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W9_S9.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/10_S10_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/10_S10_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W10_S10.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/11_S11_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/11_S11_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W11_S11.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/12_S12_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/12_S12_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W12_S12.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/13_S13_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/13_S13_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W13_S13.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/14_S14_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/14_S14_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W14_S14.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/15_S15_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/15_S15_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W15_S15.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/16_S16_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/16_S16_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W16_S16.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/17_S17_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/17_S17_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W17_S17.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/18_S18_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/18_S18_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W18_S18.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/19_S19_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/19_S19_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W19_S19.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/20_S20_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/20_S20_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W20_S20.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/21_S21_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/21_S21_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W21_S21.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/22_S22_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/22_S22_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W22_S22.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/23_S23_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/23_S23_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W23_S23.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/24_S24_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/24_S24_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W24_S24.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/25_S25_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/25_S25_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W25_S25.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/26_S26_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/26_S26_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W26_S26.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/27_S27_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/27_S27_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W27_S27.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/28_S28_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/28_S28_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W28_S28.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/29_S29_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/29_S29_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W29_S29.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/30_S30_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/30_S30_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W30_S30.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/31_S31_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/31_S31_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W31_S31.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/32_S32_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/32_S32_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W32_S32.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/33_S33_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/33_S33_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W33_S33.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/34_S34_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/34_S34_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W34_S34.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/35_S35_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/35_S35_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W35_S35.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/36_S36_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/36_S36_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W36_S36.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/37_S37_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/37_S37_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W37_S37.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/38_S38_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/38_S38_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W38_S38.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/87_S87_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/87_S87_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W87_S87.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/88_S88_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/88_S88_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W88_S88.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/89_S89_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/89_S89_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W89_S89.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/90_S90_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/90_S90_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W90_S90.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/91_S91_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/91_S91_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W91_S91.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/92_S92_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/92_S92_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W92_S92.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/93_S93_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/93_S93_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W93_S93.sam
+hisat2 -p 18 --dta -x /scratch/user/NETID/indexes/tv_genome -1 /scratch/user/NETID/fastq_files/17041Knr_N17177/94_S94_L001_R1_001.fastq.gz -2 /scratch/user/NETID/fastq_files/17041Knr_N17177/94_S94_L001_R2_001.fastq.gz -S /scratch/user/NETID/hisat_out/W94_S94.sam
+
+##LOAD SAMTOOLS MODULE
+
+module load SAMtools/1.8-GCCcore-6.4.0
+
+##CHANGE DIRECTORY TO /HISAT_OUT/
+
+cd /scratch/user/NETID/hisat_out/
+
+##CONVERT SAM TO BAM FILES
+
+samtools sort -@ 18 -o W9_S9.bam W9_S9.sam
+samtools sort -@ 18 -o W10_S10.bam W10_S10.sam
+samtools sort -@ 18 -o W11_S11.bam W11_S11.sam
+samtools sort -@ 18 -o W12_S12.bam W12_S12.sam
+samtools sort -@ 18 -o W13_S13.bam W13_S13.sam
+samtools sort -@ 18 -o W14_S14.bam W14_S14.sam
+samtools sort -@ 18 -o W15_S15.bam W15_S15.sam
+samtools sort -@ 18 -o W16_S16.bam W16_S16.sam
+samtools sort -@ 18 -o W17_S17.bam W17_S17.sam
+samtools sort -@ 18 -o W18_S18.bam W18_S18.sam
+samtools sort -@ 18 -o W19_S19.bam W19_S19.sam
+samtools sort -@ 18 -o W20_S20.bam W20_S20.sam
+samtools sort -@ 18 -o W21_S21.bam W21_S21.sam
+samtools sort -@ 18 -o W22_S22.bam W22_S22.sam
+samtools sort -@ 18 -o W23_S23.bam W23_S23.sam
+samtools sort -@ 18 -o W24_S24.bam W24_S24.sam
+samtools sort -@ 18 -o W25_S25.bam W25_S25.sam
+samtools sort -@ 18 -o W26_S26.bam W26_S26.sam
+samtools sort -@ 18 -o W27_S27.bam W27_S27.sam
+samtools sort -@ 18 -o W28_S28.bam W28_S28.sam
+samtools sort -@ 18 -o W29_S29.bam W29_S29.sam
+samtools sort -@ 18 -o W30_S30.bam W30_S30.sam
+samtools sort -@ 18 -o W31_S31.bam W31_S31.sam
+samtools sort -@ 18 -o W32_S32.bam W32_S32.sam
+samtools sort -@ 18 -o W33_S33.bam W33_S33.sam
+samtools sort -@ 18 -o W34_S34.bam W34_S34.sam
+samtools sort -@ 18 -o W35_S35.bam W35_S35.sam
+samtools sort -@ 18 -o W36_S36.bam W36_S36.sam
+samtools sort -@ 18 -o W37_S37.bam W37_S37.sam
+samtools sort -@ 18 -o W38_S38.bam W38_S38.sam
+samtools sort -@ 18 -o W87_S87.bam W87_S87.sam
+samtools sort -@ 18 -o W88_S88.bam W88_S88.sam
+samtools sort -@ 18 -o W89_S89.bam W89_S89.sam
+samtools sort -@ 18 -o W90_S90.bam W90_S90.sam
+samtools sort -@ 18 -o W91_S91.bam W91_S91.sam
+samtools sort -@ 18 -o W92_S92.bam W92_S92.sam
+samtools sort -@ 18 -o W93_S93.bam W93_S93.sam
+samtools sort -@ 18 -o W94_S94.bam W94_S94.sam
+
+
+##CHANGE DIRECTORY TO SCRATCH
+
+cd /scratch/user/NETID/
+
+##LOAD STRINGTIE MODULE
+
+module load StringTie/1.3.3b-intel-2015B
+
+##ASSEMBLE READS TO TRANSCRIPTS
+
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W9_S9.gtf -l W9_S9 hisat_out/W9_S9.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W10_S10.gtf -l W10_S10 hisat_out/W10_S10.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W11_S11.gtf -l W11_S11 hisat_out/W11_S11.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W12_S12.gtf -l W12_S12 hisat_out/W12_S12.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W13_S13.gtf -l W13_S13 hisat_out/W13_S13.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W14_S14.gtf -l W14_S14 hisat_out/W14_S14.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W15_S15.gtf -l W15_S15 hisat_out/W15_S15.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W16_S16.gtf -l W16_S16 hisat_out/W16_S16.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W17_S17.gtf -l W17_S17 hisat_out/W17_S17.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W18_S18.gtf -l W18_S18 hisat_out/W18_S18.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W19_S19.gtf -l W19_S19 hisat_out/W19_S19.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W20_S20.gtf -l W20_S20 hisat_out/W20_S20.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W21_S21.gtf -l W21_S21 hisat_out/W21_S21.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W22_S22.gtf -l W22_S22 hisat_out/W22_S22.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W23_S23.gtf -l W23_S23 hisat_out/W23_S23.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W24_S24.gtf -l W24_S24 hisat_out/W24_S24.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W25_S25.gtf -l W25_S25 hisat_out/W25_S25.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W26_S26.gtf -l W26_S26 hisat_out/W26_S26.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W27_S27.gtf -l W27_S27 hisat_out/W27_S27.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W28_S28.gtf -l W28_S28 hisat_out/W28_S28.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W29_S29.gtf -l W29_S29 hisat_out/W29_S29.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W30_S30.gtf -l W30_S30 hisat_out/W30_S30.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W31_S31.gtf -l W31_S31 hisat_out/W31_S31.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W32_S32.gtf -l W32_S32 hisat_out/W32_S32.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W33_S33.gtf -l W33_S33 hisat_out/W33_S33.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W34_S34.gtf -l W34_S34 hisat_out/W34_S34.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W35_S35.gtf -l W35_S35 hisat_out/W35_S35.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W36_S36.gtf -l W36_S36 hisat_out/W36_S36.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W37_S37.gtf -l W37_S37 hisat_out/W37_S37.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W38_S38.gtf -l W38_S38 hisat_out/W38_S38.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W87_S87.gtf -l W87_S87 hisat_out/W87_S87.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W88_S88.gtf -l W88_S88 hisat_out/W88_S88.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W89_S89.gtf -l W89_S89 hisat_out/W89_S89.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W90_S90.gtf -l W90_S90 hisat_out/W90_S90.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W91_S91.gtf -l W91_S91 hisat_out/W91_S91.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W92_S92.gtf -l W92_S92 hisat_out/W92_S92.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W93_S93.gtf -l W93_S93 hisat_out/W93_S93.bam
+stringtie -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o W94_S94.gtf -l W94_S94 hisat_out/W94_S94.bam
+
+
+##MERGE READS
+
+stringtie --merge -p 18 -G /scratch/user/NETID/indexes/Trichoderma_virens.ASM17099v1.39.gff3 -o stringtie_merged.gtf mergelist.txt
+
+##ESTIMATE ABUNDANCES AND PREPARE FOR BALLGOWN ANALYSIS
+
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W9_S9/W9_S9.gtf hisat_out/W9_S9.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W10_S10/W10_S10.gtf hisat_out/W10_S10.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W11_S11/W11_S11.gtf hisat_out/W11_S11.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W12_S12/W12_S12.gtf hisat_out/W12_S12.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W13_S13/W13_S13.gtf hisat_out/W13_S13.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W14_S14/W14_S14.gtf hisat_out/W14_S14.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W15_S15/W15_S15.gtf hisat_out/W15_S15.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W16_S16/W16_S16.gtf hisat_out/W16_S16.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W17_S17/W17_S17.gtf hisat_out/W17_S17.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W18_S18/W18_S18.gtf hisat_out/W18_S18.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W19_S19/W19_S19.gtf hisat_out/W19_S19.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W20_S20/W20_S20.gtf hisat_out/W20_S20.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W21_S21/W21_S21.gtf hisat_out/W21_S21.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W22_S22/W22_S22.gtf hisat_out/W22_S22.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W23_S23/W23_S23.gtf hisat_out/W23_S23.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W24_S24/W24_S24.gtf hisat_out/W24_S24.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W25_S25/W25_S25.gtf hisat_out/W25_S25.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W26_S26/W26_S26.gtf hisat_out/W26_S26.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W27_S27/W27_S27.gtf hisat_out/W27_S27.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W28_S28/W28_S28.gtf hisat_out/W28_S28.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W29_S29/W29_S29.gtf hisat_out/W29_S29.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W30_S30/W30_S30.gtf hisat_out/W30_S30.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W31_S31/W31_S31.gtf hisat_out/W31_S31.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W32_S32/W32_S32.gtf hisat_out/W32_S32.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W33_S33/W33_S33.gtf hisat_out/W33_S33.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W34_S34/W34_S34.gtf hisat_out/W34_S34.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W35_S35/W35_S35.gtf hisat_out/W35_S35.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W36_S36/W36_S36.gtf hisat_out/W36_S36.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W37_S37/W37_S37.gtf hisat_out/W37_S37.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W38_S38/W38_S38.gtf hisat_out/W38_S38.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W87_S87/W87_S87.gtf hisat_out/W87_S87.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W88_S88/W88_S88.gtf hisat_out/W88_S88.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W89_S89/W89_S89.gtf hisat_out/W89_S89.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W90_S90/W90_S90.gtf hisat_out/W90_S90.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W91_S91/W91_S91.gtf hisat_out/W91_S91.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W92_S92/W92_S92.gtf hisat_out/W92_S92.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W93_S93/W93_S93.gtf hisat_out/W93_S93.bam
+stringtie -e -B -p 18 -G stringtie_merged.gtf -o ballgown/W94_S94/W94_S94.gtf hisat_out/W94_S94.bam
+
+##BALLGOWN ANALYSIS WILL BE RUN ON LOCAL MACHINE
