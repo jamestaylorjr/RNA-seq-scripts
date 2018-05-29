@@ -3,6 +3,7 @@
 #	> Inferring genome-wide gene co-expression network using massive-scale RNA-seq samples
 #   > by integrating the predictions of three different network inference algorithms
 #	> Author: Hua Yu
+# > Edited for use with Stringtie by James Taylor
 #	> Mail: huayu@genetics.ac.cn 
 #	Created Time: 2017-10-17
 ######################################################################################################################################################################
@@ -222,17 +223,12 @@ getInterSet <- function(filelists){
     commonGenes <- intersect(commonGenes,rownames(expData))
     commonSamples <- intersect(commonSamples,colnames(expData))
   }
+  # Optional: Remove the comments if you want to see the output. It will fill the console. 
   # cat("The common genes between htseq-count and cufflinks are:", commonGenes, "\n")
   # cat("The common samples between htseq-count and cufflinks are:", commonSamples, "\n")
   return(list(Genes=commonGenes,Samples=commonSamples))
 }
 
-
-# args <- commandArgs(trailingOnly=T)
-# cat(length(args),"\n")
-# if(length(args)!=5){
-#   cat("The number of input parameters are incorrect\n")
-# }
 fpath = "C:/Users/jimta/Desktop/coexpression"
 
 filelists <- list.files(fpath,pattern="_Count\\.txt$",full.name=TRUE)
