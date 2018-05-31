@@ -13,6 +13,7 @@ consCoexpressionNetwork_wgcna <- function(path,fileName,nThreads,percThreshold,c
   library(corpcor)
   options(stringsAsFactors = FALSE)
   # cat(nThreads, "\n")
+  cat(fileName)
   normalizedData <- read.table(file=fileName, sep=" ", header=TRUE, row.names=1, stringsAsFactors=FALSE)
   normalizedData <- normalizedData[match(commonGenesAndSamples$Genes,rownames(normalizedData)),match(commonGenesAndSamples$Samples,colnames(normalizedData))]
   normalizedData[1,1] <- as.numeric(normalizedData[1,1])
@@ -21,7 +22,8 @@ consCoexpressionNetwork_wgcna <- function(path,fileName,nThreads,percThreshold,c
   normalizedDataMatrix <- normalizedDataMatrix + randomMatrix
   geneNames <- colnames(normalizedDataMatrix)
   
-  enableWGCNAThreads(nThreads = as.integer(nThreads))
+  
+  allowWGCNAThreads(nThreads = as.integer(nThreads))
   powers = seq(from=2,to=10,by=2)
   sft <- pickSoftThreshold(normalizedDataMatrix, powerVector = powers, verbose = 5)
   R2value <- -sign(sft$fitIndices[,3])*sft$fitIndices[,2]
@@ -36,6 +38,7 @@ consCoexpressionNetwork_wgcna <- function(path,fileName,nThreads,percThreshold,c
   edgeList <- edgeList[sortIndex,]
   
   # permutation
+  cat("Beginning permutation")
   randomRowIndexes <- sample(nrow(normalizedData),nrow(normalizedData),replace=FALSE)
   randomMatrix <- normalizedData[randomRowIndexes,]
   for(i in seq(1,length(randomRowIndexes))){
@@ -66,13 +69,16 @@ consCoexpressionNetwork_wgcna <- function(path,fileName,nThreads,percThreshold,c
 consCoexpressionNetwork_bc3net <- function(path,fileName,commonGenesAndSamples=NULL){
   library(bc3net)
   library(igraph)
-  normalizedData <- read.table(file=fileName,sep="\t", header=TRUE, row.names=1, stringsAsFactors=FALSE)
+  cat("bc3net function running.")
+  normalizedData <- read.table(file=fileName,sep=" ", header=TRUE, row.names=1, stringsAsFactors=FALSE)
   normalizedData <- normalizedData[match(commonGenesAndSamples$Genes,rownames(normalizedData)),match(commonGenesAndSamples$Samples,colnames(normalizedData))]
   normalizedData[1,1] <- as.numeric(normalizedData[1,1])
   normalizedDataMatrix <- data.matrix(normalizedData)
   randomMatrix <- matrix(runif((ncol(normalizedDataMatrix)*nrow(normalizedDataMatrix)),min=1e-20,max=2e-20),nrow=nrow(normalizedDataMatrix))
   normalizedDataMatrix <- normalizedDataMatrix + randomMatrix
-  bc3netNetwork <- bc3net(normalizedDataMatrix,boot=100)
+  cat("bc3net command initiated \n")
+  bc3netNetwork <- bc3net(normalizedDataMatrix,boot=10,verbose = TRUE)
+  cat("bc3net command complete \n")
   edgeList <- get.data.frame(bc3netNetwork)
   sortIndex <- order(edgeList[,3],decreasing=TRUE)
   edgeList <- edgeList[sortIndex,]
@@ -84,7 +90,8 @@ consCoexpressionNetwork_bc3net <- function(path,fileName,commonGenesAndSamples=N
 consCoexpressionNetwork_ggm <- function(path,fileName,percThreshold,commonGenesAndSamples=NULL){
   library(GeneNet)
   library(corpcor)
-  normalizedData <- read.table(file=fileName, sep="\t", header=TRUE, row.names=1, stringsAsFactors=FALSE)
+  cat("ggm function running \n")
+  normalizedData <- read.table(file=fileName, sep=" ", header=TRUE, row.names=1, stringsAsFactors=FALSE)
   normalizedData <- normalizedData[match(commonGenesAndSamples$Genes,rownames(normalizedData)),match(commonGenesAndSamples$Samples,colnames(normalizedData))]
   normalizedData[1,1] <- as.numeric(normalizedData[1,1])
   geneNames <- rownames(normalizedData)
@@ -138,6 +145,7 @@ consCoexpressionNetwork_ggm <- function(path,fileName,percThreshold,commonGenesA
 
 integrateNetworks <- function(dataPath,geneNames,S1N,S2N){
   library(corpcor)
+  cat("network integration running \n")
   wgcnaNets <- list.files(dataPath,pattern="Count_wgcna_network_final_edgeIndex\\.RData$",full.name=TRUE)
   bc3netNets <- list.files(dataPath,pattern="Count_bc3net_network_final_edgeIndex\\.RData$",full.name=TRUE)
   ggmNets <- list.files(dataPath,pattern="Count_ggm_network_final_edgeIndex\\.RData$",full.name=TRUE)
@@ -229,19 +237,38 @@ getInterSet <- function(filelists){
   return(list(Genes=commonGenes,Samples=commonSamples))
 }
 
-fpath = "C:/Users/jimta/Desktop/coexpression"
+# I added a set of if statements here to check for the presence of previously generated RData files. This is because I kept getting out of memory errors when running on the Texas A&M supercluster.
+# Also, allocating additional memory to the process only helped for a short time (I tried up to 200GB). There is a severe memory leak somewhere that needs to be found.
+# In the meantime, these statements will check for the files generated from other runs and skip them. So restarting the process will not overwrite data from a previous failed process. 
+##### James #####
+ 
+fpath = "/scratch/user/supernova1992/RNA-seq-scripts/coexpression"
 
 filelists <- list.files(fpath,pattern="_Count\\.txt$",full.name=TRUE)
+rdlists <- list.files(fpath,pattern=".RData",full.name=TRUE)
 commonGenesAndSamples <- getInterSet(filelists)
-for (fileName in filelists) { 
-  ### Weighted gene co-expression network inference
-  consCoexpressionNetwork_wgcna(fpath,fileName,4,0.005,commonGenesAndSamples)
-  
-  ### Bagging based network inference
-  consCoexpressionNetwork_bc3net(fpath,fileName,commonGenesAndSamples)
-  
-  ### Graphical gaussian model network inference
-  consCoexpressionNetwork_ggm(fpath,fileName,0.005,commonGenesAndSamples)
+for (fileName in filelists) {
+
+        if (!(paste(strsplit(fileName,".txt")[1],"_wgcna_network_final_edgeIndex.RData",sep = "") %in% rdlists)){
+         ### Weighted gene co-expression network inference
+        consCoexpressionNetwork_wgcna(fpath,fileName,4,0.005,commonGenesAndSamples)
+        }else{
+        cat("already done. continuing. \n")
+        }
+        if (!(paste(strsplit(fileName,".txt")[1],"_bc3net_network_final_edgeIndex.RData",sep = "") %in% rdlists)){
+         ### Bagging based network inference
+         consCoexpressionNetwork_bc3net(fpath,fileName,commonGenesAndSamples)
+        }else{
+        cat("already done. continuing. \n")
+	}
+        if (!(paste(strsplit(fileName,".txt")[1],"_ggm_network_final_edgeIndex.RData",sep = "") %in% rdlists)){
+         ### Graphical gaussian model network inference
+         consCoexpressionNetwork_ggm(fpath,fileName,0.005,commonGenesAndSamples)
+        }else{
+        cat("already done. continuing. \n")
+        }
+        cat(paste(fileName," Done. Moving on. \n"))
 }
+
 integrateNetworks(fpath,commonGenesAndSamples$Genes,3,2)
 
